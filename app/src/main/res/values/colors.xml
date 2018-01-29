@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--浅蓝色-->
+    <color name="colorPrimary">#3F51B5</color>
+    <!--深蓝色-->
+    <color name="colorPrimaryDark">#303F9F</color>
+    <!--深粉色-->
+    <color name="colorAccent">#FF4081</color>
+    <!--白色-->
+    <color name="white">#ffffff</color>
+    <!--灰色-->
+    <color name="titlebg_gray">#DADADA</color>
+</resources>
