@@ -30,6 +30,7 @@ import static org.xutils.x.isDebug;
  */
 
 public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity {
+
     protected P mPresenter;
     private Dialog dialog;// 添加提示框
     private Unbinder mUnbinder;// 注解
@@ -164,7 +165,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
                 .commit();
     }
 
-
     protected void replaceWithStack(@IdRes int fragmentId, Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(fragmentId, fragment)
@@ -172,12 +172,10 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
                 .commit();
     }
 
-
     /**
      * 跳转
      */
     protected abstract Intent mainIntent(Context context);
-
 
 
 }
