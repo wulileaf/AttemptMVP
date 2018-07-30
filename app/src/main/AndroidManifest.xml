@@ -24,6 +24,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 这里就是更新Apk必须设置的地方 -->
+        <!-- authorities = 包名+.provider -->
+        <!-- resource = provider_paths的xml文件 不用改动 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.zackratos.attemptmvp.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <service android:name=".updateApk.DownLoadService" />
     </application>
 
 </manifest>
