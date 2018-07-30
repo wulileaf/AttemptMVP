@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -125,6 +127,54 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment {
      */
     public void showToast(String msg) {
         Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * 吐司提示
+     * 显示位置在页面的中间位置
+     */
+    public void showMidToast(String msg) {
+        Toast toast = Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    /**
+     * 吐司提示
+     * 显示图片加文字的提示方式
+     * content:要显示的文字
+     * color：要显示文字的颜色
+     * mipmap：图片
+     * dt: 图示显示的时间长短
+     */
+    public void showPhotoToast(String content, int color, int mipmap, int dt) {
+        Toast toast = new Toast(mActivity);
+        toast.setDuration(dt);
+        toast.setGravity(Gravity.CENTER, 0, 0);// 后面的参数是标识吐司提示在页面的位置
+
+//==========================================1==============================================================
+//        LinearLayout toastView = (LinearLayout) toast.getView();
+//        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+//        v.setTextColor(Color.WHITE);
+//        v.setTextSize(18);
+//        ImageView imageCodeProject = new ImageView(getApplicationContext());
+//        imageCodeProject.setImageResource(R.mipmap.s);
+//        toastView.addView(imageCodeProject, 0);
+//        toast.show();
+//==========================================1==============================================================
+
+//==========================================2==============================================================
+        LayoutInflater inflater = mActivity.getLayoutInflater();
+        View view = inflater.inflate(R.layout.toast_custom, null);
+        TextView text1 = (TextView) view.findViewById(R.id.ez);
+        text1.setText(content);
+        text1.setTextColor(getResources().getColor(color));
+        ImageView imageView = (ImageView) view.findViewById(R.id.img);
+        imageView.setImageResource(mipmap);// mipmap图片大小(>70*70)
+        toast.setView(view);
+        toast.show();
+//==========================================2==============================================================
     }
 
     /**
