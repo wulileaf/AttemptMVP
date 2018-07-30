@@ -5,6 +5,10 @@ import android.content.Context;
 
 import org.xutils.DbManager;
 import org.xutils.common.util.LogUtil;
+import org.xutils.db.sqlite.SqlInfo;
+import org.xutils.db.sqlite.SqlInfoBuilder;
+import org.xutils.db.table.TableEntity;
+import org.xutils.ex.DbException;
 import org.xutils.x;
 
 import java.util.concurrent.TimeUnit;
@@ -23,6 +27,7 @@ public class BaseApplication extends Application {
     private static BaseApplication mContext;
     public static DbManager db;//初始化数据库管理器
     private DbManager.DaoConfig daoConfig;
+    private TableEntity entity;
 
     @Override
     public void onCreate() {
@@ -55,6 +60,20 @@ public class BaseApplication extends Application {
     /**
      * 初始化xUtils3数据库
      */
+    // 判断是否需要升级数据库
+//    private void dbVersionControll(int oldVersion,int newVersion){
+//        // 使用for实现跨版本升级数据库
+//        for (int i = oldVersion; i < newVersion; i++) {
+//            switch (i) {
+//                case 1:{
+//                    upgradeToVersion2(db);
+//                }
+//                break;
+//                default:
+//                    break;
+//            }
+//        }
+//    }
     private void initXtilsDB() {
         daoConfig = new DbManager.DaoConfig();
         daoConfig.setDbName("AS")
@@ -70,6 +89,11 @@ public class BaseApplication extends Application {
              */
             @Override
             public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+//                db.addColumn(Sign.class,"test");// 添加新字段
+//                db.dropTable(DeliverMailInfo.class);// 删除表
+//                db.getTable().tableIsExist()// 创建表
+//                alter table ss add(str1,int)//
+
 
             }
         }).setDbVersion(1);
@@ -86,4 +110,21 @@ public class BaseApplication extends Application {
     public static BaseApplication getInstance() {
         return mContext;
     }
+
+    /**
+     * 判断这个表是否存在 不存在就创建表
+     */
+//    public <T> void creatTable(DbManager db, String tableName, Class<T> tableBean) {
+//        try {
+//            if (!entity.tableIsExist()) { //!tabIsExist(db.getDatabase(), tableName)
+//                SqlInfo sqlInfo;
+//                sqlInfo = SqlInfoBuilder.buildCreateTableSqlInfo(db
+//                        .getTable(tableBean));
+//                db.execNonQuery(sqlInfo);
+//            }
+//        } catch (DbException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//    }
 }

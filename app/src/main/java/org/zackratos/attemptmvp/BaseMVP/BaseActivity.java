@@ -9,7 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import static org.xutils.x.isDebug;
  */
 
 public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity {
+
     protected P mPresenter;
     private Dialog dialog;// 添加提示框
     private Unbinder mUnbinder;// 注解
@@ -89,6 +93,54 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
      */
     public void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 吐司提示
+     * 显示位置在页面的中间位置
+     */
+    public void showMidToast(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    /**
+     * 吐司提示
+     * 显示图片加文字的提示方式
+     * 原生的
+     * content:要显示的文字
+     * color：要显示文字的颜色
+     * mipmap：图片
+     * dt: 图示显示的时间长短
+     */
+    public void showPhotoToast(String content, int color, int mipmap, int dt) {
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(dt);
+        toast.setGravity(Gravity.CENTER, 0, 0);// 后面的参数是标识吐司提示在页面的位置
+
+//==========================================1==============================================================
+//        LinearLayout toastView = (LinearLayout) toast.getView();
+//        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+//        v.setTextColor(Color.WHITE);
+//        v.setTextSize(18);
+//        ImageView imageCodeProject = new ImageView(getApplicationContext());
+//        imageCodeProject.setImageResource(R.mipmap.s);
+//        toastView.addView(imageCodeProject, 0);
+//        toast.show();
+//==========================================1==============================================================
+
+//==========================================2==============================================================
+        LayoutInflater inflater = this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.toast_custom, null);
+        TextView text1 = (TextView) view.findViewById(R.id.ez);
+        text1.setText(content);
+        text1.setTextColor(getResources().getColor(color));
+        ImageView imageView = (ImageView) view.findViewById(R.id.img);
+        imageView.setImageResource(mipmap);// mipmap图片大小(>70*70)
+        toast.setView(view);
+        toast.show();
+//==========================================2==============================================================
     }
 
     /**
@@ -164,7 +216,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
                 .commit();
     }
 
-
     protected void replaceWithStack(@IdRes int fragmentId, Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(fragmentId, fragment)
@@ -172,12 +223,10 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
                 .commit();
     }
 
-
     /**
      * 跳转
      */
     protected abstract Intent mainIntent(Context context);
-
 
 
 }

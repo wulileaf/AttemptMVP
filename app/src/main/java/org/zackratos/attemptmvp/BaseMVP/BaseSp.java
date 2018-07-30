@@ -20,7 +20,7 @@ public class BaseSp {
      * SPUtils构造函数
      */
     public BaseSp(Context context) {
-        sp = context.getSharedPreferences("test", Context.MODE_PRIVATE);
+        sp = context.getSharedPreferences("test", Context.MODE_PRIVATE);// 参数1：即是表单的名称，参数2：为操作模式目前就只有这一种
         editor = sp.edit();
         editor.apply();
     }
