@@ -139,7 +139,6 @@ public class DownLoadService extends Service {
     /**
      * 重点在这里
      */
-
     public void openFile(File var0, Context var1) {
         Intent var2 = new Intent();
         var2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
